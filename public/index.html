@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Applicant Tracking Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1c2025;--pn:#282d34;--bd:#39404a;--tx:#f1f3f5;--mu:#9aa3ad;--in:#20252b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.4 Figtree,system-ui,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}:focus-visible{outline:2px solid #5aa2ff;outline-offset:2px}
+.top{display:flex;align-items:center;gap:14px;padding:14px 24px;flex-wrap:wrap;border-bottom:1px solid var(--bd)}
+h1{margin:0;font-size:20px;font-weight:800;letter-spacing:.04em}.sp{flex:1}
+nav{display:flex;gap:4px;background:var(--pn);padding:4px;border-radius:10px}
+nav button{border:0;background:none;padding:7px 14px;border-radius:7px;cursor:pointer;color:var(--mu);font-weight:600}nav button[aria-current=true]{background:#3a4350;color:#fff}
+#q{padding:9px 12px;border:1px solid var(--bd);border-radius:9px;background:var(--in);width:230px}
+.btn{padding:9px 14px;border:1px solid var(--bd);border-radius:9px;background:var(--pn);cursor:pointer;font-weight:600}.btn.p{background:#2f7cf6;border-color:#2f7cf6;color:#fff}.btn.d{color:#ff7b80}
+main{padding:18px 24px 48px;max-width:1360px;margin:auto}[hidden]{display:none!important}
+.kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:12px}
+.kpi{border-radius:7px;padding:14px 8px;text-align:center}.kpi b{display:block;font-size:32px;font-weight:800;line-height:1.1}.kpi span{font-size:12.5px;font-weight:600;opacity:.92}
+.r2{display:grid;grid-template-columns:1fr 1.3fr 1.3fr .8fr;gap:12px;margin-bottom:12px}.r3{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:12px}
+.pn{background:var(--pn);border-radius:10px;padding:16px;min-width:0}.pn h3{margin:0 0 10px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#cfd5dc}
+.donut{width:100%;max-width:170px;display:block;margin:0 auto}.leg{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;margin-top:10px;font-size:12.5px;color:var(--mu)}
+.leg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+svg{display:block;width:100%}svg text{font-family:Figtree,sans-serif}
+.rb{margin-bottom:12px}.rb>div{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:3px;color:#dfe3e8}.rb p{margin:0 0 3px;height:8px;border-radius:4px;background:#1f252b}.rb p i{display:block;height:100%;border-radius:4px}
+.hb{display:flex;align-items:center;gap:10px;margin-bottom:12px}.hb i{display:block;height:28px;border-radius:7px}.hb b{font-size:15px}.hb span{color:var(--mu);font-size:12.5px;min-width:112px}
+.cols{display:flex;align-items:flex-end;gap:10px;height:170px}.cols div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:11.5px;color:var(--mu);text-align:center}.cols i{display:block;width:100%;border-radius:5px 5px 0 0;margin:3px 0}.cols b{color:#fff}
+.cv{display:grid;grid-template-columns:90px 1fr 44px;gap:10px;align-items:center;margin-bottom:11px}.cv p{margin:0;height:14px;background:#1f252b;border-radius:4px}.cv i{display:block;height:100%;border-radius:4px}.cv span{color:var(--mu)}
+.board{display:grid;grid-template-columns:repeat(6,minmax(210px,1fr));gap:10px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--pn);border-radius:10px;border-top:3px solid var(--c);min-height:320px;padding:10px}.col.over{outline:2px dashed var(--c)}
+.col h4{margin:0 0 10px;display:flex;justify-content:space-between;font-size:13px}.col h4 span{color:var(--mu)}
+.card{background:#323944;border-radius:8px;padding:10px;margin-bottom:8px;cursor:grab}.card:active{cursor:grabbing}.card small{color:var(--mu);display:block}
+.who{display:flex;gap:10px;align-items:center}.av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12px;color:#fff;flex:none}
+.tools{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}.tools select{padding:8px 10px;border:1px solid var(--bd);border-radius:9px;background:var(--pn)}
+.tw{overflow-x:auto;background:var(--pn);border-radius:10px}table{width:100%;border-collapse:collapse}th,td{padding:12px 16px;text-align:left;white-space:nowrap}
+th{color:var(--mu);font-size:12.5px;cursor:pointer}tbody tr{border-top:1px solid var(--bd);cursor:pointer}tbody tr:hover{background:#2f353d}td small{display:block;color:var(--mu)}
+.chip{--c:#888;border:0;border-radius:99px;padding:5px 12px;font-weight:700;font-size:12.5px;color:var(--c);background:color-mix(in srgb,var(--c) 18%,transparent)}select.chip{padding-right:26px;appearance:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 10px) 52%;background-size:4px 4px;background-repeat:no-repeat}select.chip option{color:#111;background:#fff}
+.empty{padding:36px;text-align:center;color:var(--mu)}.pager{display:flex;justify-content:space-between;align-items:center;margin-top:10px;color:var(--mu)}.pager div{display:flex;gap:6px}
+dialog{border:1px solid var(--bd);border-radius:14px;background:var(--pn);color:var(--tx);padding:22px;width:min(480px,94vw)}dialog::backdrop{background:rgba(5,8,14,.6)}
+dialog label{display:block;margin:10px 0 3px;color:var(--mu);font-size:12.5px}dialog input,dialog select,dialog textarea{width:100%;padding:9px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--in)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.err{color:#ff7b80;margin-top:10px;min-height:18px}
+dialog.drawer{position:fixed;right:0;top:0;margin:0;height:100dvh;max-height:100dvh;width:min(420px,100vw);border-radius:14px 0 0 14px}
+.drawer h3{margin:0}.drawer dl{display:grid;grid-template-columns:90px 1fr;gap:8px 12px;margin:16px 0}.drawer dt{color:var(--mu)}.drawer dd{margin:0}
+.tl{list-style:none;margin:8px 0 0;padding:0 0 0 14px;border-left:2px solid var(--bd)}.tl li{position:relative;padding:0 0 14px 12px}.tl li:before{content:"";position:absolute;left:-20px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--c);border:2px solid var(--pn)}.tl small{color:var(--mu);display:block}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#fff;color:#111;padding:10px 16px;border-radius:10px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}.toast.on{opacity:1}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}.r2,.r3{grid-template-columns:1fr 1fr}}@media(max-width:640px){.r2,.r3{grid-template-columns:1fr}#q{width:100%}main{padding:14px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<header class="top"><h1>APPLICANT TRACKING DASHBOARD</h1><span class="sp"></span>
+<nav><button data-tab="dash">Dashboard</button><button data-tab="board">Pipeline</button><button data-tab="list">Candidates</button></nav>
+<input id="q" placeholder="Search name, email, skill, role" aria-label="Search candidates"><button class="btn p" id="add">Add candidate</button></header>
+<main>
+<section id="v-dash">
+<div class="kpis" id="kpis"></div>
+<div class="r2"><div class="pn"><h3>Candidate status</h3><div id="donut"></div></div><div class="pn"><h3>Applications, last 14 days</h3><div id="trend"></div></div>
+<div class="pn"><h3>Roles: applied vs hired</h3><div id="roles"></div></div><div class="pn"><h3>Hire rate</h3><div id="g1"></div><h3 style="margin-top:12px">Reached interview</h3><div id="g2"></div></div></div>
+<div class="r3"><div class="pn"><h3>Experience level</h3><div id="exp"></div></div><div class="pn"><h3>Top skills</h3><div id="skills"></div></div><div class="pn"><h3>Stage conversion</h3><div id="conv"></div></div></div>
+</section>
+<section id="v-board" hidden><div class="board" id="board"></div></section>
+<section id="v-list" hidden><div class="tools"><select id="fs" aria-label="Filter by stage"></select><select id="fr" aria-label="Filter by role"></select><button class="btn" id="clr">Clear filters</button></div>
+<div class="tw"><table><thead><tr id="head"></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="pager"><span id="pg"></span><div><button class="btn" id="prev">Previous</button><button class="btn" id="next">Next</button></div></div></section>
+</main>
+<dialog id="dlg"><form method="dialog" id="f"><h3 id="dt" style="margin:0 0 4px">Add candidate</h3>
+<div class="row2"><div><label>Full name</label><input name="name" required></div><div><label>Email</label><input name="email" type="email" required></div></div>
+<div class="row2"><div><label>Role applied for</label><input name="role" required></div><div><label>Phone</label><input name="phone"></div></div>
+<label>Skills, comma separated</label><input name="skills"><div class="row2"><div><label>Experience in years</label><input name="experience" type="number" min="0" step="0.5"></div><div><label>Stage</label><select name="stage"></select></div></div>
+<label>Notes</label><textarea name="notes" rows="3"></textarea><div class="err" id="err" role="alert"></div>
+<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px"><button type="button" class="btn" id="cancel">Cancel</button><button type="button" class="btn p" id="save">Save candidate</button></div></form></dialog>
+<dialog id="dr" class="drawer"></dialog><div class="toast" id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s);
+const SC={Applied:'#4f8ff7',Screening:'#a78bfa',Interview:'#f0a92e',Offer:'#27b5b0',Hired:'#43b86a',Rejected:'#e5575a'};
+let STAGES=[],st={page:1,sort:'created_at',order:'desc',stage:'',role:''},editId=null,tab='dash';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const api=async(u,o={})=>{const r=await fetch(u,{headers:{'Content-Type':'application/json'},...o,body:o.body&&JSON.stringify(o.body)});
+ if(r.status===204)return null;const j=await r.json();if(!r.ok)throw j.errors||['Something went wrong'];return j};
+const ts=d=>new Date(String(d).replace(' ','T')+'Z');
+const ago=d=>{const n=Math.floor((Date.now()-ts(d))/864e5);return n<=0?'Today':n===1?'Yesterday':n+' days ago'};
+const av=n=>`<span class="av" style="background:hsl(${[...n].reduce((a,c)=>a+c.charCodeAt(0),0)%360} 45% 42%)">${esc(n.split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase())}</span>`;
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2200)};
+function donut(items,total){const R=48,C=2*Math.PI*R;let o=0;
+ const seg=items.filter(i=>i.v>0).map(i=>{const l=i.v/total*C,s=`<circle cx="70" cy="70" r="${R}" fill="none" stroke="${i.c}" stroke-width="22" stroke-dasharray="${l} ${C-l}" stroke-dashoffset="${-o}" transform="rotate(-90 70 70)"/>`;o+=l;return s}).join('');
+ return `<svg class="donut" viewBox="0 0 140 140"><circle cx="70" cy="70" r="${R}" fill="none" stroke="#1f252b" stroke-width="22"/>${seg}<text x="70" y="77" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">${total}</text></svg>`}
+function gauge(p,c){const L=Math.PI*50,d='M10 62A50 50 0 0 1 110 62';return `<svg viewBox="0 0 120 72" style="max-width:150px;margin:auto"><path d="${d}" fill="none" stroke="#1f252b" stroke-width="12" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${p/100*L} ${L}"/><text x="60" y="58" text-anchor="middle" font-size="21" font-weight="800" fill="#fff">${p}%</text></svg>`}
+function line(v,lb){const W=320,H=120,mx=Math.max(1,...v),x=i=>12+i*(W-24)/(v.length-1),y=a=>H-12-a/mx*(H-28),pt=v.map((a,i)=>`${x(i)},${y(a)}`).join(' ');
+ return `<svg viewBox="0 0 ${W} ${H+18}"><line x1="12" x2="${W-12}" y1="${H-12}" y2="${H-12}" stroke="#39404a"/><polygon points="12,${H-12} ${pt} ${W-12},${H-12}" fill="#2fd0b8" opacity=".16"/><polyline points="${pt}" fill="none" stroke="#2fd0b8" stroke-width="2.5" stroke-linejoin="round"/>${v.map((a,i)=>`<circle cx="${x(i)}" cy="${y(a)}" r="3.2" fill="#2fd0b8"><title>${lb[i]}: ${a}</title></circle>`).join('')}${[0,6,13].map(i=>`<text x="${x(i)}" y="${H+10}" text-anchor="${i?i===13?'end':'middle':'start'}" font-size="9" fill="#9aa3ad">${lb[i]}</text>`).join('')}</svg>`}
+async function metrics(){const m=await api('/api/metrics'),{total,active,byStage:b,reached}=m;
+ $('#kpis').innerHTML=[['Total candidates',total,'#3b9a45'],['Active',active,'#1f6db5'],['Interviewing',b.Interview,'#d79a1d'],['Offers out',b.Offer,'#2a7b5d'],['Hired',b.Hired,'#1d8c8c'],['New this week',m.last7,'#237f87'],['Avg days to hire',m.avgDaysToHire??'–','#1b7a7a']].map(([l,v,c])=>`<div class="kpi" style="background:${c}"><b>${v}</b><span>${l}</span></div>`).join('');
+ $('#donut').innerHTML=donut(STAGES.map(s=>({v:b[s],c:SC[s]})),total)+`<div class="leg">${STAGES.map(s=>`<span><i style="background:${SC[s]}"></i>${b[s]} ${s}</span>`).join('')}</div>`;
+ const days=[...Array(14)].map((_,i)=>new Date(Date.now()-(13-i)*864e5).toISOString().slice(0,10)),tl=Object.fromEntries(m.timeline.map(t=>[t.d,t.c]));
+ $('#trend').innerHTML=line(days.map(d=>tl[d]||0),days.map(d=>new Date(d).toLocaleDateString([],{day:'numeric',month:'short',timeZone:'UTC'})));
+ const mx=Math.max(1,...m.byRole.map(r=>r.c));
+ $('#roles').innerHTML=m.byRole.map(r=>`<div class="rb"><div><span>${esc(r.role)}</span><span>${r.hired} of ${r.c} hired</span></div><p><i style="width:${r.c/mx*100}%;background:#27b5b0"></i></p><p><i style="width:${r.hired/mx*100}%;background:#f0a92e"></i></p></div>`).join('')||'<span style="color:#9aa3ad">No roles yet.</span>';
+ $('#g1').innerHTML=gauge(Math.round(m.hireRate),'#43b86a');$('#g2').innerHTML=gauge(total?Math.round(reached.Interview/total*100):0,'#f0a92e');
+ const em=Math.max(1,...m.byExp.map(e=>e.c)),ec=['#43b86a','#f0a92e','#e5575a'];
+ $('#exp').innerHTML=m.byExp.map((e,i)=>`<div class="hb"><span>${e.l}</span><i style="width:${e.c/em*100}%;min-width:30px;background:${ec[i%3]}"></i><b>${e.c}</b></div>`).join('');
+ const sm=Math.max(1,...m.topSkills.map(s=>s.c)),sc=['#3b82f6','#f0a92e','#27b5b0','#e5575a','#a78bfa','#43b86a'];
+ $('#skills').innerHTML=`<div class="cols">${m.topSkills.map((s,i)=>`<div><b>${s.c}</b><i style="height:${s.c/sm*110}px;background:${sc[i]}"></i>${esc(s.skill)}</div>`).join('')}</div>`;
+ $('#conv').innerHTML=STAGES.slice(0,5).map(s=>{const p=total?Math.round(reached[s]/total*100):0;return `<div class="cv"><span>${s}</span><p><i style="width:${p}%;background:${SC[s]}"></i></p><b>${p}%</b></div>`}).join('')+'<small style="color:#9aa3ad">Share of all candidates who have reached each stage</small>'}
+async function board(){const r=await api('/api/candidates?limit=100&sort=created_at&q='+encodeURIComponent($('#q').value));
+ $('#board').innerHTML=STAGES.map(s=>{const cs=r.data.filter(c=>c.stage===s);return `<div class="col" style="--c:${SC[s]}" data-drop="${s}"><h4>${s}<span>${cs.length}</span></h4>${cs.map(c=>`<div class="card" draggable="true" data-card="${c.id}"><div class="who">${av(c.name)}<div>${esc(c.name)}<small>${esc(c.role)}</small></div></div><small style="margin-top:8px">${c.experience} yrs · ${ago(c.created_at)}</small></div>`).join('')}</div>`}).join('')}
+async function list(){const p=new URLSearchParams({q:$('#q').value,stage:st.stage,role:st.role,sort:st.sort,order:st.order,page:st.page});
+ const [r,m]=await Promise.all([api('/api/candidates?'+p),api('/api/metrics')]);
+ $('#fs').innerHTML='<option value="">All stages</option>'+STAGES.map(s=>`<option ${s===st.stage?'selected':''}>${s}</option>`).join('');
+ $('#fr').innerHTML='<option value="">All roles</option>'+m.byRole.map(x=>`<option ${x.role===st.role?'selected':''}>${esc(x.role)}</option>`).join('');
+ const C=[['name','Candidate'],['role','Role'],['experience','Experience'],['stage','Stage'],['created_at','Applied']];
+ $('#head').innerHTML=C.map(([k,l])=>`<th data-k="${k}">${l}${st.sort===k?(st.order==='asc'?' ↑':' ↓'):''}</th>`).join('');
+ $('#rows').innerHTML=r.data.map(c=>`<tr data-id="${c.id}"><td><div class="who">${av(c.name)}<div>${esc(c.name)}<small>${esc(c.email)}</small></div></div></td><td>${esc(c.role)}<small>${esc(c.skills)}</small></td><td>${c.experience} yrs</td>
+ <td><select class="chip" style="--c:${SC[c.stage]}" data-s="${c.id}" aria-label="Stage for ${esc(c.name)}">${STAGES.map(s=>`<option ${s===c.stage?'selected':''}>${s}</option>`).join('')}</select></td><td>${ago(c.created_at)}</td></tr>`).join('')
+ ||'<tr><td colspan="5" class="empty"><b>No candidates match</b><br>Clear the filters or add a new candidate.</td></tr>';
+ $('#pg').textContent=r.total?`Page ${r.page} of ${Math.max(1,r.pages)} · ${r.total} candidates`:'';$('#prev').disabled=r.page<=1;$('#next').disabled=r.page>=r.pages}
+const load=()=>({dash:metrics,board,list})[tab]();
+function show(t){tab=['dash','board','list'].includes(t)?t:'dash';location.hash=tab;['dash','board','list'].forEach(k=>$('#v-'+k).hidden=k!==tab);
+ document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-current',b.dataset.tab===tab));load()}
+function openForm(c){editId=c?.id||null;$('#dt').textContent=c?'Edit candidate':'Add candidate';$('#err').textContent='';
+ const f=$('#f');['name','email','phone','role','skills','experience','stage','notes'].forEach(k=>f[k].value=c?c[k]:(k==='stage'?'Applied':''));$('#dlg').showModal()}
+async function openDrawer(id){const c=await api('/api/candidates/'+id),d=$('#dr');
+ d.innerHTML=`<div class="who" style="margin-bottom:8px">${av(c.name)}<div><h3>${esc(c.name)}</h3><small style="color:#9aa3ad">${esc(c.role)}</small></div></div><span class="chip" style="--c:${SC[c.stage]}">${c.stage}</span>
+ <dl><dt>Email</dt><dd>${esc(c.email)}</dd><dt>Phone</dt><dd>${esc(c.phone)||'–'}</dd><dt>Experience</dt><dd>${c.experience} years</dd><dt>Skills</dt><dd>${esc(c.skills)||'–'}</dd><dt>Notes</dt><dd>${esc(c.notes)||'–'}</dd></dl>
+ <b>Stage history</b><ul class="tl">${(c.history||[]).map(h=>`<li style="--c:${SC[h.to_stage]}">${h.from_stage?`Moved from ${h.from_stage} to <b>${h.to_stage}</b>`:`Added as <b>${h.to_stage}</b>`}<small>${ts(h.changed_at).toLocaleString([],{dateStyle:'medium',timeStyle:'short'})}</small></li>`).join('')}</ul>
+ <div style="display:flex;gap:8px;margin-top:16px"><button class="btn p" data-edit="${c.id}">Edit</button><button class="btn d" data-del="${c.id}">Delete</button><span class="sp"></span><button class="btn" data-close>Close</button></div>`;d.showModal()}
+async function move(id,stage){const c=await api(`/api/candidates/${id}/stage`,{method:'PATCH',body:{stage}});toast(`${c.name} moved to ${c.stage}`);load()}
+$('#add').onclick=()=>openForm();$('#cancel').onclick=()=>$('#dlg').close();
+$('#save').onclick=async()=>{const body=Object.fromEntries(new FormData($('#f')));
+ try{await api(editId?`/api/candidates/${editId}`:'/api/candidates',{method:editId?'PUT':'POST',body});$('#dlg').close();toast(editId?'Candidate updated':'Candidate added');load()}catch(e){$('#err').textContent=[].concat(e).join(', ')}};
+document.addEventListener('click',async e=>{const t=e.target,g=k=>t.closest(`[${k}]`);
+ if(g('data-tab'))show(g('data-tab').dataset.tab);
+ else if(g('data-k')){const k=g('data-k').dataset.k;st.order=st.sort===k&&st.order==='asc'?'desc':'asc';st.sort=k;list()}
+ else if(g('data-edit')){const c=await api('/api/candidates/'+g('data-edit').dataset.edit);$('#dr').close();openForm(c)}
+ else if(g('data-del')){if(confirm('Delete this candidate? This cannot be undone.')){await api('/api/candidates/'+g('data-del').dataset.del,{method:'DELETE'});$('#dr').close();toast('Candidate deleted');load()}}
+ else if(g('data-close')||t.id==='dr')$('#dr').close();
+ else if(g('data-card'))openDrawer(g('data-card').dataset.card);
+ else if(t.closest('tbody tr[data-id]')&&!t.closest('select'))openDrawer(t.closest('tr').dataset.id)});
+document.addEventListener('change',e=>{if(e.target.dataset.s)move(e.target.dataset.s,e.target.value);
+ if(e.target.id==='fs'){st.stage=e.target.value;st.page=1;list()}if(e.target.id==='fr'){st.role=e.target.value;st.page=1;list()}});
+document.addEventListener('dragstart',e=>{const c=e.target.closest?.('[data-card]');if(c)e.dataTransfer.setData('text/plain',c.dataset.card)});
+document.addEventListener('dragover',e=>{const c=e.target.closest?.('[data-drop]');if(c){e.preventDefault();c.classList.add('over')}});
+document.addEventListener('dragleave',e=>e.target.closest?.('[data-drop]')?.classList.remove('over'));
+document.addEventListener('drop',e=>{const c=e.target.closest?.('[data-drop]');if(!c)return;e.preventDefault();c.classList.remove('over');const id=e.dataTransfer.getData('text/plain');if(id)move(id,c.dataset.drop)});
+let tm;$('#q').oninput=()=>{clearTimeout(tm);tm=setTimeout(()=>{st.page=1;if(tab==='dash')show('list');else load()},250)};
+$('#clr').onclick=()=>{st.stage=st.role='';$('#q').value='';st.page=1;list()};
+$('#prev').onclick=()=>{st.page--;list()};$('#next').onclick=()=>{st.page++;list()};
+(async()=>{STAGES=await api('/api/stages');$('#f').stage.innerHTML=STAGES.map(s=>`<option>${s}</option>`).join('');show(location.hash.slice(1))})();
+</script></body></html>
