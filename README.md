@@ -2,7 +2,7 @@
 
 A small Applicant Tracking System: manage candidates, move them through hiring stages, search/filter, and view dashboard metrics.
 
-**Live demo:** _add URL_ · **Demo video:** _add URL_
+**Live demo:** https://mini-ats-cam8.onrender.com · **Demo video:** https://drive.google.com/file/d/1H8EEqINz0rDzbU5VuOJf185nPyzbrgwn/view?usp=sharing
 
 ## Stack
 Node.js + Express, SQLite (better-sqlite3), vanilla JS frontend served by the same server (one deployable unit).
